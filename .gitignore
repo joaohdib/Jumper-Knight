@@ -1,0 +1,36 @@
+/[Aa]ssetstoretools*
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Mm]emoryCaptures/
+
+.vs/
+.vscode/
+
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+
+*.csproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svclog
+*.com.apple.itunes.plist
+
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Crash reports
+sysinfo.txt
+
+Build/
+Builds/
+
+# User Settings (Importante para não vazar caminhos locais da sua máquina)
+UserSettings/
