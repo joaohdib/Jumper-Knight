@@ -1,3 +1,4 @@
+using UnityEditor.Rendering.Analytics;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -16,6 +17,7 @@ public class Player : MonoBehaviour
     private float moveInput;
     private bool isGrounded;
 
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -24,7 +26,6 @@ public class Player : MonoBehaviour
     void Update()
     {
         moveInput = Input.GetAxisRaw("Horizontal");
-
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer);
 
         if (Input.GetButtonDown("Jump") && isGrounded)

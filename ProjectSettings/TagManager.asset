@@ -12,8 +12,8 @@ TagManager:
   - Water
   - UI
   - Ground
-  - 
-  - 
+  - Collectibles
+  - Breakable
   - 
   - 
   - 
@@ -40,6 +40,24 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 491497903
+    locked: 0
+  - name: Midground
+    uniqueID: 2818243795
+    locked: 0
+  - name: Platforms
+    uniqueID: 2297891237
+    locked: 0
+  - name: Player
+    uniqueID: 2727638071
+    locked: 0
+  - name: Items
+    uniqueID: 1405340609
+    locked: 0
+  - name: Foreground
+    uniqueID: 2026694735
     locked: 0
   m_RenderingLayers:
   - Default
