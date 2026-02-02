@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
     public LayerMask groundLayer;
 
     private Rigidbody2D rb;
+    private Animator anim;
+
     private float moveInput;
     private bool isGrounded;
 
@@ -21,6 +23,7 @@ public class Player : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -33,11 +36,14 @@ public class Player : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         }
 
+        float horizontalSpeed = Mathf.Abs(rb.linearVelocity.x);
+        anim.SetFloat("Speed", horizontalSpeed); // defining speed to the running animation
+
     }
 
     void FixedUpdate()
     {
-        rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocityY);
+        rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
 
         if (moveInput > 0)
         {

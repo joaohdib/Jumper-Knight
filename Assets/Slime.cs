@@ -16,6 +16,13 @@ public class Slime : MonoBehaviour
 
     private Rigidbody2D rb;
 
+    private bool isActivated;
+
+    void OnBecameVisible()
+    {
+        isActivated = true;
+    }
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -54,8 +61,16 @@ public class Slime : MonoBehaviour
 
     void FixedUpdate()
     {
-        float horizontalVelocity = movingRight ? moveSpeed : -moveSpeed;
-        rb.linearVelocity = new Vector2(horizontalVelocity, rb.linearVelocity.y);
+        if (isActivated)
+        {
+            float horizontalVelocity = movingRight ? moveSpeed : -moveSpeed;
+            rb.linearVelocity = new Vector2(horizontalVelocity, rb.linearVelocity.y);
+        }
+        else
+        {
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+        }
+
     }
 
     private void Flip()
