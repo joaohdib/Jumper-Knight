@@ -1,8 +1,10 @@
-using UnityEditor.Rendering.Analytics;
 using UnityEngine;
+using System.Collections;
 
 public class Player : MonoBehaviour
 {
+
+    [SerializeField] GameObject sword;
 
     [Header("Movement Settings")]
     public float moveSpeed = 8f;
@@ -19,6 +21,10 @@ public class Player : MonoBehaviour
     private float moveInput;
     private bool isGrounded;
 
+    public bool hasSword = false;
+
+    public float swordSwingDuration = 0.2f;
+
 
     void Awake()
     {
@@ -34,6 +40,12 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+        }
+
+        if (Input.GetButtonDown("Fire1") && hasSword)
+        {
+            Debug.Log("FIRE!");
+            UseSword();
         }
 
         float horizontalSpeed = Mathf.Abs(rb.linearVelocity.x);
@@ -54,4 +66,42 @@ public class Player : MonoBehaviour
             transform.localScale = new Vector3(-1, 1, 1);
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Sword"))
+        {
+            Debug.Log("Touched the Sword!");
+
+            EquipSword();
+            Destroy(other.gameObject);
+        }
+    }
+
+    private void EquipSword()
+    {
+        hasSword = true;
+    }
+
+
+    private void UseSword()
+    {
+        if (!sword.activeSelf)
+        {
+            StartCoroutine(showSword());// must use StartCoroutine to execute IEnumerator methods
+        }
+    }
+
+    private IEnumerator showSword()
+    {
+        // activate the sword
+        sword.SetActive(true);
+
+        // wait 1 sec
+        yield return new WaitForSeconds(swordSwingDuration);
+
+        // deactivate sword
+        sword.SetActive(false);
+    }
+
 }

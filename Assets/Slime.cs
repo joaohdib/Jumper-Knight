@@ -73,6 +73,15 @@ public class Slime : MonoBehaviour
 
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("PlayerSword"))
+        {
+            Destroy(gameObject);
+            ScoreManager.Instance.AddScore(100);
+        }
+    }
+
     private void Flip()
     {
         movingRight = !movingRight;
