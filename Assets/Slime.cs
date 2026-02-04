@@ -5,7 +5,7 @@ public class Slime : MonoBehaviour
 
     [Header("Movement Settings")]
     public float moveSpeed = 2f;
-    private bool movingRight = true;
+    public bool movingRight = true;
 
     [Header("Detection")]
     public Transform wallCheck;
@@ -73,14 +73,13 @@ public class Slime : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnCollisionEnter2D(Collision2D collision)
+{
+    if (collision.gameObject.CompareTag("Slime") && collision.gameObject != gameObject)
     {
-        if (other.CompareTag("PlayerSword"))
-        {
-            Destroy(gameObject);
-            ScoreManager.Instance.AddScore(100);
-        }
+        Flip();
     }
+}
 
     private void Flip()
     {

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Sword
   - PlayerSword
+  - Slime
   layers:
   - Default
   - TransparentFX
@@ -18,8 +19,8 @@ TagManager:
   - Breakable
   - Player
   - Punchable
-  - 
-  - 
+  - Slime
+  - BreakableBox
   - 
   - 
   - 

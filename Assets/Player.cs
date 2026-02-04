@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 public class Player : MonoBehaviour
 {
@@ -25,6 +26,10 @@ public class Player : MonoBehaviour
 
     public float swordSwingDuration = 0.2f;
 
+    public static event Action OnPlayerDeath;
+
+    public float jumpCutMultiplier = 0.5f; // multiplier for jump height when releasing jump button early (lower value = shorter jump)
+
 
     void Awake()
     {
@@ -42,9 +47,13 @@ public class Player : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         }
 
+        if (Input.GetButtonUp("Jump") && rb.linearVelocity.y > 0)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * jumpCutMultiplier);
+        }
+
         if (Input.GetButtonDown("Fire1") && hasSword)
         {
-            Debug.Log("FIRE!");
             UseSword();
         }
 
@@ -56,6 +65,15 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
+
+        if (rb.linearVelocity.y < 0)
+        {
+            rb.gravityScale = 4f;
+        }
+        else
+        {
+            rb.gravityScale = 3f; 
+        }
 
         if (moveInput > 0)
         {
@@ -75,6 +93,14 @@ public class Player : MonoBehaviour
 
             EquipSword();
             Destroy(other.gameObject);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Slime"))
+        {
+            Die();
         }
     }
 
@@ -102,6 +128,16 @@ public class Player : MonoBehaviour
 
         // deactivate sword
         sword.SetActive(false);
+    }
+
+    private void Die()
+    {
+
+        // trigger the event if there are listeners
+        OnPlayerDeath?.Invoke();
+
+        // disable the player object or visuals
+        gameObject.SetActive(false);
     }
 
 }
