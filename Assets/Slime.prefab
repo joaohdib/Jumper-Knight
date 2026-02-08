@@ -241,6 +241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
+  movingRight: 1
   wallCheck: {fileID: 3187217345268551040}
   headCheck: {fileID: 5911617215009034565}
   detectionRadius: 0.2
@@ -250,6 +251,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 512
+  health: 2
 --- !u!95 &8400739516578658883
 Animator:
   serializedVersion: 7

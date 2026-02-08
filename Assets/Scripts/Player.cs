@@ -5,7 +5,7 @@ using System;
 public class Player : MonoBehaviour
 {
 
-    [SerializeField] GameObject sword;
+    [SerializeField] PlayerSword sword;
 
     [Header("Movement Settings")]
     public float moveSpeed = 8f;
@@ -23,7 +23,6 @@ public class Player : MonoBehaviour
     private bool isGrounded;
 
     public bool hasSword = false;
-
     public float swordSwingDuration = 0.2f;
 
     public static event Action OnPlayerDeath;
@@ -89,10 +88,13 @@ public class Player : MonoBehaviour
     {
         if (other.CompareTag("Sword"))
         {
-            Debug.Log("Touched the Sword!");
-
             EquipSword();
             Destroy(other.gameObject);
+        }
+
+        if (other.CompareTag("Anvil"))
+        {
+            sword.Repair();
         }
     }
 
@@ -112,7 +114,7 @@ public class Player : MonoBehaviour
 
     private void UseSword()
     {
-        if (!sword.activeSelf)
+        if (!sword.gameObject.activeSelf)
         {
             StartCoroutine(showSword());// must use StartCoroutine to execute IEnumerator methods
         }
@@ -121,13 +123,13 @@ public class Player : MonoBehaviour
     private IEnumerator showSword()
     {
         // activate the sword
-        sword.SetActive(true);
+        sword.gameObject.SetActive(true);
 
         // wait 1 sec
         yield return new WaitForSeconds(swordSwingDuration);
 
         // deactivate sword
-        sword.SetActive(false);
+        sword.gameObject.SetActive(false);
     }
 
     private void Die()

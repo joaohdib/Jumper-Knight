@@ -24,9 +24,9 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex; // get the current scene and load it again
+        Time.timeScale = 1f;
         SceneManager.LoadScene(currentSceneIndex);
         
-        Time.timeScale = 1f;
     }
 
     private void OnEnable()
